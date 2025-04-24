@@ -41,7 +41,7 @@ export default function Details() {
 
      
       <button onClick={() => navigate('/')} style={{ marginTop: '20px', padding: '10px 20px' }}>
-        Back to Pokedox
+        Back to Home
       </button>
     </div>
   );

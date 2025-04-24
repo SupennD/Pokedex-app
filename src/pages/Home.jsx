@@ -1,5 +1,6 @@
+// src/pages/Home.jsx
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -85,7 +86,7 @@ export default function Home() {
   return (
     <div style={{ alignItems: 'center', padding: '1rem', margin: '0 auto' }}>
       <h1 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem' }}>Pokédex App</h1>
-        <div
+      <div
         className="pokemon-grid"
         style={{
           display: 'grid',
@@ -100,7 +101,7 @@ export default function Home() {
           <div
             key={pokemon.id}
             className="pokemon-card"
-            onClick={() => navigate(`/pokemon/${pokemon.name}`)}
+            onClick={() => navigate(`/pokemon/${pokemon.name}`, { state: { currentPage } })} // Pass currentPage in state
             style={{
               backgroundColor: pokeColorMap[pokemon.color] || '#EEE',
               color: pokemon.color === 'black' ? 'white' : 'black',
