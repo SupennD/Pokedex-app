@@ -113,7 +113,7 @@ export default function Home() {
           gridTemplateColumns: 'repeat(4, 1fr)',
           gap: '16px',
           justifyContent: 'center',
-          maxWidth: '900px',
+          maxWidth: '1000px',
           margin: '0 auto',
         }}
       >
@@ -128,6 +128,8 @@ export default function Home() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              height: '180px',
+              width: '220px',
               justifyContent: 'center',
               borderRadius: '8px',
               padding: '16px',
