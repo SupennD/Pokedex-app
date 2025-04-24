@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Home() {
   const [pokemonList, setPokemonList] = useState([]);
-  const [nextUrl, setNextUrl] = useState(null);
-  const [prevUrl, setPrevUrl] = useState(null);
-  const [currentUrl, setCurrentUrl] = useState('https://pokeapi.co/api/v2/pokemon?limit=12');
+  const [offset, setOffset] = useState(0);
+  const [totalCount, setTotalCount] = useState(null);
+  const limit = 12;
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const pokeColorMap = {
     black: '#323232',
@@ -24,14 +23,13 @@ export default function Home() {
   };
 
   useEffect(() => {
-    async function fetchData(url) {
+    async function fetchData() {
       try {
-        console.log('Fetching Pokémon data from:', url);
+        const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`;
         const res = await fetch(url);
         const data = await res.json();
 
-        setNextUrl(data.next);
-        setPrevUrl(data.previous);
+        setTotalCount(data.count);
 
         const colorCache = {};
         const detailedData = await Promise.all(
@@ -67,27 +65,43 @@ export default function Home() {
       }
     }
 
-    fetchData(currentUrl);
-  }, [currentUrl]);
+    fetchData();
+  }, [offset]);
 
   const goToNext = () => {
-    if (nextUrl) setCurrentUrl(nextUrl);
+    if (offset + limit < totalCount) {
+      setOffset(offset + limit);
+    }
   };
 
   const goToPrev = () => {
-    if (prevUrl) setCurrentUrl(prevUrl);
+    if (offset - limit >= 0) {
+      setOffset(offset - limit);
+    }
   };
+
+  const currentPage = Math.floor(offset / limit) + 1;
 
   return (
     <div style={{ alignItems: 'center', padding: '1rem', margin: '0 auto' }}>
       <h1 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem' }}>Pokédex</h1>
       <p style={{ fontSize: '2rem', textAlign: 'center' }}>Check out the Pokémon</p>
 
-      {/* Link to the About page */}
       <div style={{ textAlign: 'center', marginTop: '1rem' }}>
         <Link to="/about">
-          <button style={{ padding: '10px 20px', fontSize: '1.2rem', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer',  marginBottom: '1rem' }}>
-            About This Pokedox
+          <button
+            style={{
+              padding: '10px 20px',
+              fontSize: '1.2rem',
+              backgroundColor: '#007bff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              marginBottom: '1rem',
+            }}
+          >
+            About This Pokedex
           </button>
         </Link>
       </div>
@@ -118,7 +132,7 @@ export default function Home() {
               borderRadius: '8px',
               padding: '16px',
               boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-              cursor: 'pointer', // optional visual cue
+              cursor: 'pointer',
             }}
           >
             <p># {pokemon.id}</p>
@@ -136,32 +150,37 @@ export default function Home() {
       <div style={{ textAlign: 'center', marginTop: '2rem' }}>
         <button
           onClick={goToPrev}
-          disabled={!prevUrl}
+          disabled={offset === 0}
           style={{
             marginRight: '1rem',
             padding: '10px 20px',
             fontSize: '1.2rem',
-            backgroundColor: prevUrl ? '#007bff' : '#ccc',
+            backgroundColor: offset === 0 ? '#ccc' : '#007bff',
             color: 'white',
             border: 'none',
             borderRadius: '5px',
-            cursor: prevUrl ? 'pointer' : 'not-allowed',
+            cursor: offset === 0 ? 'not-allowed' : 'pointer',
           }}
         >
           Previous
         </button>
 
+        <span style={{ fontSize: '1.2rem', margin: '0 1rem' }}>
+          Page {currentPage}
+        </span>
+
         <button
           onClick={goToNext}
-          disabled={!nextUrl}
+          disabled={offset + limit >= totalCount}
           style={{
+            marginLeft: '1rem',
             padding: '10px 20px',
             fontSize: '1.2rem',
-            backgroundColor: nextUrl ? '#007bff' : '#ccc',
+            backgroundColor: offset + limit >= totalCount ? '#ccc' : '#007bff',
             color: 'white',
             border: 'none',
             borderRadius: '5px',
-            cursor: nextUrl ? 'pointer' : 'not-allowed',
+            cursor: offset + limit >= totalCount ? 'not-allowed' : 'pointer',
           }}
         >
           Next
