@@ -84,29 +84,8 @@ export default function Home() {
 
   return (
     <div style={{ alignItems: 'center', padding: '1rem', margin: '0 auto' }}>
-      <h1 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem' }}>Pokédex</h1>
-      <p style={{ fontSize: '2rem', textAlign: 'center' }}>Check out the Pokémon</p>
-
-      <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-        <Link to="/about">
-          <button
-            style={{
-              padding: '10px 20px',
-              fontSize: '1.2rem',
-              backgroundColor: '#007bff',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              marginBottom: '1rem',
-            }}
-          >
-            About This Pokedex
-          </button>
-        </Link>
-      </div>
-
-      <div
+      <h1 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem' }}>Pokédex App</h1>
+        <div
         className="pokemon-grid"
         style={{
           display: 'grid',

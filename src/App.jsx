@@ -1,6 +1,5 @@
 import React from 'react';
-import Home from './pages/Home'; // Make sure the path is correct
-
+import Home from './pages/Home'; 
 function App() {
   return (
     <div>
