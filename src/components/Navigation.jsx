@@ -1,4 +1,3 @@
-// src/components/Navigation.jsx
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './../css/Navigation.css';
@@ -13,10 +12,8 @@ function Navigation() {
 
   return (
     <nav className="navbar">
+      <button onClick={handleHomeClick} className="nav-link">Pokedex</button>
       <ul>
-        <li>
-          <button onClick={handleHomeClick} className="nav-link">Pokedex</button>
-        </li>
         <li>
           <Link to="/about" className="nav-link">About</Link>
         </li>
