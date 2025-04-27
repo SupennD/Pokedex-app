@@ -1,6 +1,7 @@
 // src/pages/Home.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './../css/Home.css'; 
 
 export default function Home() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -84,37 +85,17 @@ export default function Home() {
   const currentPage = Math.floor(offset / limit) + 1;
 
   return (
-    <div style={{ alignItems: 'center', padding: '1rem', margin: '0 auto' }}>
-      <h1 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem' }}>Pokédex App</h1>
-      <div
-        className="pokemon-grid"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '16px',
-          justifyContent: 'center',
-          maxWidth: '1000px',
-          margin: '0 auto',
-        }}
-      >
+    <div className="home-container">
+      <h1 className="home-title">Pokédex App</h1>
+      <div className="pokemon-grid">
         {pokemonList.map((pokemon) => (
           <div
             key={pokemon.id}
             className="pokemon-card"
-            onClick={() => navigate(`/pokemon/${pokemon.name}`, { state: { currentPage } })} // Pass currentPage in state
+            onClick={() => navigate(`/pokemon/${pokemon.name}`, { state: { currentPage } })}
             style={{
               backgroundColor: pokeColorMap[pokemon.color] || '#EEE',
               color: pokemon.color === 'black' ? 'white' : 'black',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              height: '180px',
-              width: '220px',
-              justifyContent: 'center',
-              borderRadius: '8px',
-              padding: '16px',
-              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-              cursor: 'pointer',
             }}
           >
             <p># {pokemon.id}</p>
@@ -122,48 +103,29 @@ export default function Home() {
               src={pokemon.image}
               alt={pokemon.name}
               className="pokemon-image"
-              style={{ width: '80px', height: '80px', objectFit: 'contain' }}
             />
             <h2>{pokemon.name}</h2>
           </div>
         ))}
       </div>
 
-      <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+      <div className="pagination-container">
         <button
           onClick={goToPrev}
           disabled={offset === 0}
-          style={{
-            marginRight: '1rem',
-            padding: '10px 20px',
-            fontSize: '1.2rem',
-            backgroundColor: offset === 0 ? '#ccc' : '#007bff',
-            color: 'white',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: offset === 0 ? 'not-allowed' : 'pointer',
-          }}
+          className={`pagination-button ${offset === 0 ? 'disabled' : ''}`}
         >
           Previous
         </button>
 
-        <span style={{ fontSize: '1.2rem', margin: '0 1rem' }}>
+        <span className="current-page">
           Page {currentPage}
         </span>
 
         <button
           onClick={goToNext}
           disabled={offset + limit >= totalCount}
-          style={{
-            marginLeft: '1rem',
-            padding: '10px 20px',
-            fontSize: '1.2rem',
-            backgroundColor: offset + limit >= totalCount ? '#ccc' : '#007bff',
-            color: 'white',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: offset + limit >= totalCount ? 'not-allowed' : 'pointer',
-          }}
+          className={`pagination-button ${offset + limit >= totalCount ? 'disabled' : ''}`}
         >
           Next
         </button>

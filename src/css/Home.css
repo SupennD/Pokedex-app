@@ -1,0 +1,109 @@
+/* src/css/Home.css */
+.home-container {
+    align-items: center;
+    padding: 1rem;
+    margin: 0 auto;
+    padding-bottom: 100px; 
+}
+
+.home-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.pokemon-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.pokemon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 155px; 
+    width: 240px;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.pokemon-card:hover {
+    transform: scale(1.05);
+}
+
+.pokemon-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.pagination-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%); 
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.7); 
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-button {
+    margin: 0 0.5rem;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-button:hover:not(.disabled) {
+    background-color: #0056b3;
+}
+
+.pagination-button.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.current-page {
+    font-size: 1.2rem;
+    color: white;
+}
+
+@media (max-width: 1000px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .pokemon-card {
+    width: 90%;
+    margin: 0 auto;
+  }
+}

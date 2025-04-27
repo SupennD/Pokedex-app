@@ -1,12 +1,13 @@
 // src/pages/Detail.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import './../css/Detail.css';  
 
 export default function Details() {
   const { name } = useParams();
   const [pokemon, setPokemon] = useState(null);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Added useNavigate hook
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     async function fetchPokemon() {
@@ -27,20 +28,18 @@ export default function Details() {
   if (!pokemon) return <p>Loading...</p>;
 
   return (
-    <div style={{ padding: '2rem', textAlign: 'center' }}>
-      <h1 style={{ fontSize: '3rem' }}>{pokemon.name}</h1>
+    <div className="detail-container">
+      <h1>{pokemon.name}</h1>
       <img
         src={pokemon.sprites.front_default}
         alt={pokemon.name}
-        style={{ width: '150px', height: '150px' }}
       />
       <p><strong>Height:</strong> {pokemon.height}</p>
       <p><strong>Weight:</strong> {pokemon.weight}</p>
       <p><strong>Types:</strong> {pokemon.types.map(t => t.type.name).join(', ')}</p>
       <p><strong>Base experience:</strong> {pokemon.base_experience}</p>
 
-     
-      <button onClick={() => navigate('/')} style={{ marginTop: '20px', padding: '10px 20px' }}>
+      <button onClick={() => navigate('/')}>
         Back to Home
       </button>
     </div>

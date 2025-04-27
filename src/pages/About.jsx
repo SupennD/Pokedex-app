@@ -15,10 +15,25 @@ export default function About() {
       <p>
         Whether you're a Pokémon Trainer or just starting your journey, this app provides an easy and fun way to discover all things Pokémon!
       </p>
+      
       <p>Enjoy exploring!</p>
 
-      {/* Back button */}
-      <button onClick={() => navigate('/')} style={{ marginTop: '20px', padding: '10px 20px' }}>
+        <button 
+        onClick={() => navigate('/')} 
+        style={{ 
+          marginTop: '20px', 
+          padding: '10px 20px', 
+          backgroundColor: '#4682B4',
+          color: 'white', 
+          border: 'none', 
+          borderRadius: '5px', 
+          cursor: 'pointer', 
+          fontSize: '1rem', 
+          transition: 'background-color 0.3s'
+        }}
+        onMouseOver={(e) => e.target.style.backgroundColor = '#5A9BD5'}
+        onMouseOut={(e) => e.target.style.backgroundColor = '#4682B4'} 
+      >
         Back to Home
       </button>
     </div>
